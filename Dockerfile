@@ -1,11 +1,18 @@
-FROM python:3.6
+# Use an official Python runtime as a base image
+FROM python:3.8-slim
 
-RUN pip install flask
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-COPY . /opt/
+# Copy the current directory contents into the container at /usr/src/app
+COPY . .
 
-EXPOSE 3000
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-WORKDIR /opt
+# Make port 8000 available to the world outside this container
+EXPOSE 8000
 
-ENTRYPOINT ["python", "app.py"]
+# Run Gunicorn to serve the app
+CMD ["gunicorn", "--workers=3", "--bind=0.0.0.0:8000", "app:app"]
+

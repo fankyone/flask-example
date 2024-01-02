@@ -1,29 +1,38 @@
 pipeline {
-    agent any 
-    environment {
-    DOCKERHUB_CREDENTIALS = credentials('amonkincloud-dockerhub')
-    }
-    stages { 
+    agent any
 
-        stage('Build docker image') {
-            steps {  
-                sh 'docker build -t marvin0304/flaskapp:$BUILD_NUMBER .'
+    
+    stages {
+        stage('Stop Running Containers') {
+            steps {
+                script {
+                    // Stop all running Docker containers
+                    sh 'docker stop $(docker ps -q)'
+                }
             }
         }
-        stage('login to dockerhub') {
-            steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        stage('Cleanup') {
+            steps {
+                script {
+                    // Clean up unused Docker images to free up space
+                    sh "docker system prune -af"
+                }
             }
         }
-        stage('push image') {
-            steps{
-                sh 'docker push marvin0304/flaskapp:$BUILD_NUMBER'
+        stage('Deploy Containers') {
+            steps {
+                script {
+                    // Deploy using docker-compose
+                    sh 'docker-compose up -d'
+                }
             }
         }
-}
-post {
+        
+    }
+    post {
         always {
-            sh 'docker logout'
+            // Log out from Docker Hub and bring down services
+            sh 'docker system prune -af'
         }
     }
 }
