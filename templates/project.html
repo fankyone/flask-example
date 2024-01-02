@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvin Letgo - Projects</title>
+    <link rel="stylesheet" href="static/css/project.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="/">
+                <img src="/static/images/LOGO.JPG" alt="Marvin Letgo Logo">
+            </a>
+            <nav>
+                <a href="/project">Projects</a>
+                <a href="/about">About</a>
+                <a href="/personal">Career</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </header>
+
+        <section class="portfolio-grid">
+            <a href="#" onclick="openModalWithIframe('https://42d0z0rmnl.execute-api.ap-northeast-1.amazonaws.com/start-instance'); return false;">
+                <img src="/static/images/T2314_thumbnail.JPG" alt="Description of Image 1" class="portfolio-image">
+                <div class="play-icon"></div>
+            </a>            
+            <a href="#" onclick="openModalWithIframe('https://5qpij7angb.execute-api.ap-east-1.amazonaws.com/start-instance'); return false;">
+                <img src="/static/images/sugar_thumbnail.JPG" alt="Description of Image 2" class="portfolio-image">
+                <div class="play-icon"></div>
+            </a>
+            <a href="#" onclick="openModalWithIframe('https://cgoy1xiiy3.execute-api.ap-east-1.amazonaws.com/StartEC2FromURL_T2304'); return false;">
+                <img src="/static/images/T2304_thumbnail.JPG" alt="Description of Image 3" class="portfolio-image">
+                <div class="play-icon"></div>
+            </a>
+            <!--a href="#" onclick="openModalWithIframe('URL_TO_YOUR_WEBPAGE_4'); return false;">
+                <img src="/static/images/jimny04.JPG" alt="Description of Image 4" class="portfolio-image">
+                <div class="play-icon"></div>
+            </a-->
+        </section>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe id="modalIframe" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <section class="icon-grid">
+            <!-- Place your image grid here -->
+            <a href="https://www.facebook.com/chengyi.peng.9" target="_blank">
+                <img src="/static/images/icon_facebook.png" alt="Instagram Icon" class="icon-image">
+            </a>
+            <a href="https://www.linkedin.com/in/marvin-peng-098855177/" target="_blank">
+                <img src="/static/images/icon_linkedin.png" alt="LinkedIn Icon" class="icon-image">
+            </a>
+            <a href="https://github.com/fankyone" target="_blank">
+                <img src="/static/images/icon-github.png" alt="Github Icon" class="icon-image">
+            </a>
+            <a href="https://www.youtube.com/channel/UCnFOo4akyGxzXwx1WnOC6AA" target="_blank">
+                <img src="/static/images/icon_youtube.png" alt="YouTube Icon" class="icon-image">
+            </a>
+        </section>
+
+    </div>
+
+        <script>
+            var modal = document.getElementById('myModal');
+            var span = document.getElementsByClassName("close")[0];
+    
+            span.onclick = function() {
+                closeModal();
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    closeModal();
+                }
+            }
+
+            function openModalWithIframe(url) {
+            var iframe = document.getElementById('modalIframe');
+            iframe.src = url;
+            modal.style.display = 'block';
+            }
+
+            function closeModal() {
+            var iframe = document.getElementById('modalIframe');
+            iframe.src = ''; // Clear the iframe source
+            modal.style.display = 'none';
+            }
+
+        </script>
+
+</body>
+
+</html>
